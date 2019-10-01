@@ -1,4 +1,29 @@
-= slide 'Ко да се…' do
+= slide 'Питанки' do
+  p Каква е разликата между `list` и `tuple`?
+
+= slide 'Питанки' do
+  p Какво е dict?
+
+= slide 'Питанки' do
+  p Какво ще се случи тук?
+
+  example:
+    nums = [5, 6, 7]
+    nums += [[1, 2, 3]]
+    {num: 'Shi Shi' for num in nums}
+
+  p.action TypeError: unhashable type: 'list'
+
+= slide 'Питанки' do
+  p Какво ще се случи тук?
+
+  example:
+    nums = set(sum(map(list, (range(10), range(5, 10), range(8, 12))), []))
+    print(nums)
+
+  {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+= slide 'Питанки' do
   example:
     panda = 'shi shi'
 
@@ -14,7 +39,7 @@
   p.action Hi, shi shi
   p.action NameError: name 'platypus' is not defined
 
-= slide 'Ко каза…' do
+= slide 'Питанки' do
   example:
     >>> def closure(initial):
     ...    def increment_by(x):
@@ -28,25 +53,6 @@
     >>> dec(7)
   p.action 9
   p.action 3
-
-= slide 'Ko?!' do
-  example:
-    def snitch(init_message):
-        def decorator(f):
-          print(init_message)
-          def snitched(*args, **kwargs):
-              print('Called with {}, {}'.format(args, kwargs))
-              result = f(*args, **kwargs)
-              print('Returned {}'.format(result))
-              return result
-          return snitched
-        return decorator
-
-    @snitch('Initializing baba')
-    def baba(a, b):
-        return a / b
-
-    baba(4, 2)
 
 
 = slide 'OOP' do
@@ -87,7 +93,7 @@
   ol
     li Всичко е обект
     li Обектите са отворени
-    li Класовете са отворение
+    li Класовете са отворени
 
   p Последните две с някои малки уговорки, които обаче рядко ще ви интересуват
 
@@ -144,13 +150,15 @@
 
 
     class Vector:
-        def __init__(self, x, y): ...
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
 
         def length(self):
             return math.sqrt(self.x**2 + self.y**2)
 
-        spam = Vector(1.0, 2.0)
-        print(spam.length())
+    spam = Vector(1.0, 2.0)
+    print(spam.length())
 
   ol.action
     li В методите атрибутите могат да се достъпват само през <code>self</code> , няма никакви магически имплицитни scope-ове
@@ -204,7 +212,7 @@
 
   ul
     li mutable са обекти, които променят вътрешното си състояние във временто
-    li immutable са обекти, които никгоа не променят вътрешното си състояние
+    li immutable са обекти, които никога не променят вътрешното си състояние
 
   p Най-общо повечето обекти в python са mutable, до колкото езика не ни забранява да ги променяме
 
