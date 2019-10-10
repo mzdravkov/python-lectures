@@ -1,91 +1,26 @@
 = slide 'Но първо…' do
   p Имахте домашно.
-  p Крайния срок беше преди два часа.
-  p 58 от вас са предали решения.
-  p От общо 80 записани.
-
-= slide 'Но първо…' do
-  p Миналата година тези цифри бяха 38/176.
-
-= slide 'imagine' do
-  img src="06/sheldon.png"
+  p Крайния срок е 13.10.2019 23:57.
+  p Дотук са предали 12 човека.
 
 = slide 'И в тоя ред на мисли' do
   p Имаме някои забележки
 
-= slide 'Имена' do
-  p хубави имена за класове:
+= slide 'Стил' do
+  p Ще взимаме точки за лош стил. Това включва:
   ul
-    li Expression
-    li Variable
-    li Constant
-    li Operator
-    li BinaryOperator(ако искаме да сме пунктуални)
+    li Кофти имена.
+    li Индентация.
+    li Неизчистен закоментиран код.
+    li Липса на спейсове, където трябва да ги има.
+    li и тн.
 
-= slide 'Имена' do
-  p <b>не</b>хубави имена за класове:
-  ul
-    li expression
-    li variable
-    li constant
-    li operator
-    li binaryOperator(ако искаме да сме пунктуални)
+= slide 'PEP8' do
+  p Спазвайте го!
 
-= slide 'Имена' do
-  p Още (по-)<b>не</b>хубави имена за класове:
-  ul
-    li binary_Operator
-    li Promenliva/promenliva
-    li Expression_member
-    li OPERATOR
-    li …
-
-  img.action src="06/dontyellatme.png"
-
-= slide 'Прости правила' do
-  p Имената на класовете ви трябва да са винаги UpperCamelCase.
-
-= slide 'Прости правила' do
-  p Имената на методите ви трябва да са винаги snake_case.
-
-= slide 'Прости правила' do
-  p Неща кръстни със SCREAMING_SNAKE_CASE имена се предполага да са константи.
-
-= slide 'Едно очевидно' do
-  p Повтарящия се код трябва да бъде скрит зад някаква абстракция(клас, функция, whatever)
-
-= slide 'Нива на влагане' do
-  p Ние се стараем да ви даваме задачи, които могат да се решават с елегантен и прост код.
-  ul
-    li 80% от <code>for</code>-овете могат да бъдат comprehension-и.
-    li 70% от <code>if/else</code>-овете могат да са нещо друго
-
-= slide 'Код > Думи' do
-  example:
-      def evaluate(self, **variables):
-        rhs = 0
-        lhs = 0
-        result = 0
-        for element in self.expression_structure:
-            if isinstance(element, Operator):
-                operator = element
-            if isinstance(element, Variable):
-                if element.name in self.variable_names:
-                    for key, value in variables.items():
-                        if key == element.name:
-                            element.value = value
-                if lhs == 0:
-                    lhs = element.value
-                else:
-                    rhs = element.value
-            if isinstance(element, Constant):
-                if lhs == 0:
-                    lhs = element.value
-                else:
-                    rhs = element.value
-            if lhs != 0 and rhs != 0 and isinstance(operator, Operator):
-                result = operator.function(lhs, rhs)
-        return result
+= slide 'Пускайте си тестовете' do
+  p По-добре е да пуснете автоматизираните тестове, вместо да ползвате print.
+  p Ако ползвате print, го изтрийте преди да предадете.
 
 = slide 'The Zen of Python' do
   p Няколко малки точки от него:
@@ -95,11 +30,8 @@
     li  Flat is better than nested.
     li  Readability counts.
 
-= slide 'type checking' do
-  p почти винаги е грешния начин за това, което искате да направите разчитайки на duck typing
-
 = slide 'And now for someth–' do
-  p 
+  p
 
 = slide 'Поискай разрешение' do
     example:
@@ -234,7 +166,7 @@
                 super().__init__()
                 self.message = 'We are going to light the biggest fire the North has ever seen!1!!'
 
-        class YgetteError(WildlingError):
+        class YgritteError(WildlingError):
             def __init__(self):
                 super().__init__()
                 self.message = 'You know nothing, John Snow!'
@@ -242,9 +174,9 @@
         class WhiteWalkerError(WinterError):
             pass
 
-        def winter_is_coming(): raise WinterError
+        def winter_is_coming(): raise WinterError()
 
-        def winter_is_here(): raise WhiteWalker()
+        def winter_is_here(): raise WhiteWalkerError()
 
     p
         a href="https://docs.python.org/3.3/tutorial/errors.html#user-defined-exceptions" референция
