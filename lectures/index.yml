@@ -22,10 +22,10 @@
   title: 05. Изключения и with
   date: 2019-10-11
   slug: 06-exceptions-and-with
-#7:
-#  title: 07. Итератори и генератори
-#  date: 2016-03-23
-#  slug: 07-iterators-generators
+6:
+  title: 06. Итератори и генератори
+  date: 2019-10-23
+  slug: 07-iterators-generators
 #8:
 #  title: 08. Автоматизирано тестване
 #  date: 2016-03-28

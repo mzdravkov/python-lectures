@@ -168,7 +168,7 @@
 = slide 'Стражари и апаши' do
   p Има втора форма на <code>iter</code>, в която приема два аргумента, един callable обект и обект-страж.
 
-  p В този случай върнатия итератор ще връща стойностите от последователните извиквания на callable обекта, докато той не върне обекта-страж. (по-скоро обект, койтопри сравнение със стража връща <code>True</code>)
+  p В този случай върнатия итератор ще връща стойностите от последователните извиквания на callable обекта, докато той не върне обекта-страж. (по-скоро обект, който при сравнение със стража връща <code>True</code>)
 
   example:
       counter = 0
@@ -254,9 +254,6 @@
 
     p Ако добавяте/махате елементи докато итерирате резултата от <code>reversed</code> няма да останете доволни
 
-= slide 'Почивка' do
-  img src='07/spanish-inquisition.png'
-
 = slide 'yield' do
     ul
         li.action албум на "Pearl Jam"
@@ -313,9 +310,6 @@
               value += 1
           raise StopIteration
 
-= slide 'Генератори' do
-    img src='07/oreo.jpg' style='height: 80%;'
-
 = slide 'Generator expression' do
     p Като list comprehension, но с обли скоби и "мързелив":
     example:
@@ -352,7 +346,7 @@
                 yield num
                 num += 1
 
-        doulbes = map(lambda num: num*2, numbers())
+        doubles = map(lambda num: num*2, numbers())
 
 = slide 'enumerate' do
     p Когато индексите ни интересуват
@@ -442,7 +436,7 @@
         li <code>itertools.product(*iterables [,repeat=1])</code> - връща декартово произведение на итеруеми
         li <code>itertools.takewhile(function, iterable)</code> - генерира елементите на итеруемото, до първото което не отговаря на предиката
         li <code>itertools.dropwhile(function, iterable)</code> - генерира елементите на итеруемото, от първото което не отговаря на предиката нататък
-        li <code>itertools.tee(iterable, n)</code> - връща кортеж от n независими итеруеми
+        li <code>itertools.tee(iterable, n)</code> - връща tuple от n независими итеруеми
 
 = slide 'itertools' do
     p EXPLORE!
