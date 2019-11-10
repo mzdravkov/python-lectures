@@ -27,13 +27,13 @@
   date: 2019-10-23
   slug: 07-iterators-generators
 7:
-  title: 7. Автоматизирано тестване
+  title: 07. Автоматизирано тестване
   date: 2019-10-30
   slug: 08-unittests
-#9:
-#  title: 09. Модули
-#  date: 2016-04-06
-#  slug: 09-modules
+8:
+  title: 08. Модули
+  date: 2019-11-08
+  slug: 09-modules
 #10:
 #  title: 10. Регулярни изрази
 #  date: 2016-04-11
