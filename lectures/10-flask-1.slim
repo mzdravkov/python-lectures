@@ -55,8 +55,90 @@
   li.action По-лек и бърз от TCP.
   li.action Може да broadcast-ва съобщения към много получатели.
 
-= slide 'HTTP' do
-  p todo
+= slide 'Client-server модел' do
+  li.action Модел за структуриране на дистрибутирани системи.
+  li.action Сървърът предоставя ресурси, при поискване от клиента.
+  li.action Обикновено сървърът и клиентът комуникират по мрежата, но това не е задължително.
+  li.action Необходимо е да спазват общ протокол, за да могат да се разбират.
 
-= slide 'REST' do
-  p todo
+= slide 'HTTP' do
+  li.action Протокол, който (обикновено) работи върху TCP.
+  li.action Клиентът поисква от сървъра ресурс, използвайки Unified Resource Locator (URL).
+
+= slide 'HTTP' do
+  li Протокол, който (обикновено) работи върху TCP.
+  li Клиентът поисква от сървъра ресурс, използвайки Unified Resource Locator (URL).
+  p
+    |
+    |
+  img src='10/url.png'
+  li.action Сървърът обработва заявката и връща отговор.
+
+= slide 'Какво включва една HTTP заявка?' do
+  li.action Метод: GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH
+  li.action Път, например:/users/1
+  li.action
+    a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Request_fields" Request headers
+  li.action Опционално Request body
+
+= slide 'HTTP методи' do
+  img src="10/http-methods.png"
+
+= slide 'HTTP response' do
+  li.action
+    | Статус код (например 200 OK или 404 NOT FOUND); 
+    a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" Списък на всички кодове
+  li.action
+    a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Response_fields" Response headers
+  li.action Опционално Response body (например HTML или JSON документ)
+
+= slide 'Representational state transfer (REST)' do
+    ul
+      li.action Архитектурен модел за уеб сървиси.
+      li.action
+        | Принципи:
+        ul
+          li.action Client-Server
+          li.action
+            | Uniform interface
+            ul
+              li.action Resource identification in requests
+              li.action Resource manipulation through representations
+              li.action Self-descriptive messages
+              li.action Hypermedia as the engine of application state
+          li.action Stateless
+          li.action Cacheable
+          li.action Layered System
+
+= slide 'Малко Flask' do
+  img src="10/flask-logo.png"
+
+= slide 'Какво е Flask?' do
+  p.action Минималистичен web framework.
+  p.action (Framework vs library? Anyone?)
+
+= slide 'Инсталация' do
+  example:
+    pip install Flask
+
+= slide 'Първото ни Flask уеб приложение' do
+  example:
+    from flask import Flask
+    app = Flask(__name__)
+
+    @app.route('/')
+    def hello_world():
+        return 'Hello, World!'
+
+  p За да го пуснем е необходимо само да го запишем във файл, да речем <b>hello.py</b>, и след това да изпълним:
+
+  example:
+    export FLASK_APP=hello.py
+    flask run
+
+= slide 'Демо' do
+  p Generic elevator music starts.
+
+= slide 'Комуто му се чете' do
+  p
+    a href="https://flask.palletsprojects.com/en/1.1.x/#user-s-guide" Flask User's Guide
