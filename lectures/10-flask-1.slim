@@ -1,13 +1,35 @@
-= slide 'Конкурентност vs. паралелизъм?' do
-  p anyone?
+= slide "Питанка" do
+  p Какво може да бъде модул в python?
 
-= slide 'Похвати за конкурентност?' do
-  list:
-    процеси
-    нишки
-    "зелени" нишки
+  div.action
+    ul
+      li файл с разширение <code>.py</code>
+      li папка съдържаща файл с име <code>__init__.py</code>
 
-  p.action зелена нишка ∈ системна нишка ∈ процес
+= slide "Питанка 2" do
+  example:
+    # answerer.py
+    deep_thought = {
+      'answer': 42,
+    }
+
+  example:
+    # asker.py
+    from answerer import deep_thought
+
+    def ask():
+        return deep_thought['answer']
+
+  example:
+    # deciever.py
+    import asker
+    import answerer
+
+    answerer.deep_thought['answer'] = 0
+
+    print(asker.ask())
+
+  p.action 0
 
 = slide 'Интернета накратко' do
   li.action Можем да свържем устройствата си в обща мрежа.
