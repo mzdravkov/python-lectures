@@ -1,0 +1,165 @@
+= slide 'Git != GitHub' do
+    p.action <strong>git</strong>:
+    list:
+        Система за управление на версиите или на чист български - Version Control System (VCS)
+        Помага ни да следим кога, как и от кого е променен даден файл
+        Помага ни да работим заедно с други хора по един и същи проект
+    p.action <strong>GitHub</strong>:
+    list:
+        Сайт в Интернет
+        Платформа, в която споделяме код с други хора
+end
+
+= slide 'Хранилища и папки' do
+        p.action <strong>Работна Директория</strong>
+        list:
+            На български - Working Directory
+            Папката, в която държим файловете, над които работим
+        p.action <strong>Хранилище</strong>
+        list:
+            На български - repository
+            Папката, в която git съхранява цялата информация за историята на файловете в работната директория
+            Казва се `.git` и можете да я намерите в работната си директория
+        p.action Работата на git е да следи разликата между вашата работна директория и хранилището (repo)
+        p.action Директорията <strong>.git</strong> е вашето локално хранилище <strong>(local repo)</strong>
+end
+
+= slide 'Клониране на съществуващо repo' do
+    list:
+        `git clone https://github.com/d0ivanov/python-course.git`
+        Ще свали от Интернет (GitHub) `.git` папка и всички файлове от работната директория
+        URL-ът се нарича <strong>remote origin</strong> - мястото, от което оригинално сте свалили всички файлове
+        Едно repository може да има повече от 1 remote URL
+end
+
+= slide 'Промени в хранилището' do
+    p От време на време ще трябва да си свалите чуждите промени по проекта
+    list:
+        `git fetch` - Ще свали информацията за всички промени от remote origin repo-то. Няма да промени файловете в working директорията
+        `git merge` - Ще направи всички промени, които сте свалили от remote origin repo-то в working директорията
+        `git pull` - За удобство ще направи горните две наведнъж
+end
+
+= slide 'Промени в хранилището' do
+    p.action Докато работите над даден проект вие променяте файловете, от които се състои
+    p.action От време на време можете да проверявате в какво състояние е проектът ви:
+    list:
+        `git status` ще ви даде информация кои файлове са били променени
+        `git diff` ще ви каже какви точно промени са били направени
+    p.action Когато сте готови с текущата си работа, можете да подготвите промяна, която да се запази в хранилището ви:
+    list:
+        `git add <file name>` - маркира промените, направени по файла, като готови за commit
+        `git commit` - запазва в repo-то (`.git` директорията ви) всички промени, които сте добавили с `git add`
+        `git push` - Изпраща промените, които сте направили локално до remote origin repo-то
+end
+
+= slide 'Branching' do
+    p Когато commit-нем дадени промени, git запомня състоянието на Working директорията. Всеки нов commit пази указател към този преди него
+    img src='11/commits-and-parents.png' height='400px' width='auto'
+    list:
+        Branch в git е просто указател към един от тези commit-и
+        Когато създаден нов branch, създаваме нов указател, който можем да пренасочваме към commit-и
+end
+
+
+= slide 'Branching' do
+    example:
+        $ git branch testing
+    p Създаваме нов branch
+    img src='11/head-to-master.png' height='400px' width='auto'
+    p.action git пази специален указател, наречен `HEAD`. Tози указател сочи branch-ът, на който сме в момента. Създаването на нов branch не сменя текущият.
+end
+
+= slide 'Branching' do
+    p За да сменим текущият branch (пренасочим указателят HEAD) използваме
+    example:
+        $ git checkout testing
+    img src='11/head-to-testing.png' height='400px' width='auto'
+    p.action Можем да направим нов commit
+end
+
+= slide 'Branching' do
+    example:
+        $ vim test.py
+        $ git commit -a -m 'made a change'
+    img src='11/advance-testing.png' height='400px' width='auto'
+    list:
+        Сега нашият testing branch се е придвижил напред докато 'master' все още сочи към старо състояние на repo-то.
+        По всяко време можем да се върнем към master
+end
+
+= slide 'Branching' do
+    example:
+        $ git checkout master
+    img src='11/checkout-master.png' height='400px' width='auto'
+    list:
+        Насочихме указателят HEAD обратно към master
+        Всички файлове в Working директорията са такива каквито сме ги оставили преди да създадем testing
+        Това означава, че всички промени от тук нататък се базират на по-стара версия на repo-то
+end
+
+= slide 'Branching' do
+    example:
+        $ vim test.rb
+        $ git commit -a -m 'made other changes'
+    img src='11/advance-master.png' height='400px' width='auto'
+    list:
+        Създадохме нов branch и свършихме малко работа в него
+        Върнахме се обратно към основният си branch и свършихме малко работа
+        Сега двата branch-а се различават - промените в тях са независими
+        Можем да превключваме между тях, а можем и да ги слеем в един - merge
+end
+
+= slide 'И както от това?' do
+    p.action Branch е основна концепция в git
+    p.action Използва се за управление на кода в проекта ни
+    p.action Позволяват ни да обсъждаме код и тестваме нови идеи "в изолация"
+    p.action Позволяват ни да пазим история на релийзнатият продукт
+end
+
+= slide 'Git workflow' do
+    p.action Рецепта за това как да използваме git
+    p.action Препоръки за това как най-ефективно да се възползваме от възможностите на git
+end
+
+= slide 'Centralized Workflow' do
+    p Как работи?
+    list:
+        Започваме работа като клинираме remote repository-то
+        В своето локално копие можем да работим в изолация - всички наши къмити остават локални докато не ги push-нем
+        Използваме само един branch - master. Всички работят върху него и пушват в него
+        Историята на remote repository-то се управлява много внимателно. Към нея може само да се добавя.
+        <strong>Никога не използваме git push --force</strong>
+        Повече - <a href="https://www.atlassian.com/git/tutorials/comparing-workflows#centralized-workflow">тук</a>
+end
+
+= slide 'Feature branch workflow' do
+    p Как работи?
+    p Всички нови фийчъри се пишат в отделен branch.
+    p Започваме от master
+    example:
+        $ git checkout master
+        $ git fetch origin
+        $ git reset --hard origin/master
+
+    p Създаваме нов branch
+    example:
+        $ git checkout -b new-feature
+
+    p Добавяме код (или най-добре - трием)
+    example:
+        $ git status
+        $ git add <some-file>
+        $ git commit
+    p Това позволява на няколко души да работят по един фийчър заедно
+    p Позволява ни да подсигурим, че основният ни branch (master) винаги ще съдържа стабилен, работещ код
+    p Позволява ни да се възползваме от <a href="https://yangsu.github.io/pull-request-tutorial/">pull requests</a>
+    p Повече - <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">тук</a>
+end
+
+= slide 'Други начини на работа' do
+    list:
+        <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow">Forking Workflow</a>
+        <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Gitflow Workflow</a>
+
+end
