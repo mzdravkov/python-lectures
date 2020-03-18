@@ -42,6 +42,10 @@
   title: 10. Git и работа с git
   date: 2020-03-17
   slug: 11-git
+12:
+  title: 11. CI / CD
+  date: 2020-03-19
+  slug: 12-ci-cd
 #11:
 #  title: 11. Метапрограмиране
 #  date: 2016-04-13
