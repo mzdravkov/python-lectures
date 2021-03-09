@@ -1,0 +1,167 @@
+=slide 'Design patterns' do
+  p "Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice." - Christopher Alexander
+
+=slide 'В широкия свят' do
+  ul
+    li Design patterns е концепция, която можете да приложите в разнообразни области.
+    li Произлиза от работата на архитекта Кристофър Александър.
+    li Ward Cunningham цитира тази идея като основно вдъхновение зад създаването на първата wiki страница.
+    li Една от областите, която възприема най-дълбоко тази концепция е софтуерното инженерство.
+
+=slide 'За какво ще говорим ние' do
+  p В програмирането, когато някой говори за design patterns, най-вероятно има в предвид онези pattern-и, които се използват в ООП езиците.
+  p Ще говорим за тях, но е добре да имате в предвид, че в други програмни парадигми също бихме имали design pattern-и, които най-вероятно, обаче, биха били различни.
+  p Каноничната книга за design patterns (на т.нар Gang of Four): <a href="https://www.goodreads.com/book/show/85009.Design_Patterns">Design patterns: Elements of Reusable Object-Oriented Software</a>
+
+=slide 'Я пак? Какво са design patterns?' do
+  ul
+    li Шаблон за решаване на често срещан базов проблем.
+    li Използвани правилно, помагат да направите по-изчистен и extensible код.
+    li Могат да направят разработката по-бърза и ефективна.
+    li Служат за "общ език" между програмистите.
+=slide 'Категории' do
+  ul
+    li Creational patterns
+    li Structural patterns
+    li Behavioural patterns
+    li Concurrency patterns
+
+=slide 'Creational patterns: Singleton' do
+  p Design pattern, който гарантира, че може да съществува само една единствена инстанция на даден клас и ни дава глобален достъп до нея.
+
+  p Приложения:
+  ul
+    li Logging.
+    li Зареждане на конфигурационни файлове.
+    li Да съхраняваме връзки към ресурс, който би се използвал на много места в системата, но би било опасно да имаме много инстанции едновременно.
+
+=slide 'Примерна имплементация' do
+  p На Java:
+
+  example:
+    public final class Singleton {
+
+      private static final Singleton INSTANCE = new Singleton();
+
+      private Singleton() {}
+
+      public static Singleton getInstance() {
+          return INSTANCE;
+      }
+    }
+
+  p Или на Python:
+
+  example:
+    class Singleton:
+        __instance = None
+        def __new__(cls, *args):
+            if cls.__instance is None:
+                cls.__instance = object.__new__(cls, *args)
+            return cls.__instance
+
+=slide 'Проблеми със Singleton' do
+  ul
+    li Не е особено добра идея да бъде използван, ако инстанцията е mutable. (mutable global state)
+    li Не го използвайте, освен ако не сте сигурни, че наистина трябва да има една единствена иснтанция.
+    li Имайте предвид, че обикновено паметта заделена за инстанцията никога няма да се освободи.
+    li Може да направят кода ви по-труден за тестванe.
+
+=slide 'Creational patterns: Factory method' do
+  p Design pattern, който ни позволява да създаваме обекти, без да казваме какъв точно е класа на обектите.
+
+  p Използвайки factory-та, класовете ни могат да работят с абстрактни типове или интерфейси, без да зависят на конкретни имплементации. Така кодът ни е по-generic.
+
+  p Помага за спазването на SOLID принципите. По-специално на S - single responsibility principle и нa D - dependency inversion principle (depend upon abstractions, not concretions).
+
+=slide 'Пример за factory method (1)' do
+  example:
+    public abstract class Room {
+        abstract void connect(Room room);
+    }
+
+    public class MagicRoom extends Room {
+        public void connect(Room room) {}
+    }
+
+    public class OrdinaryRoom extends Room {
+        public void connect(Room room) {}
+    }
+
+    public abstract class MazeGame {
+         private final List<Room> rooms = new ArrayList<>();
+
+         public MazeGame() {
+              Room room1 = makeRoom();
+              Room room2 = makeRoom();
+              room1.connect(room2);
+              rooms.add(room1);
+              rooms.add(room2);
+         }
+
+         abstract protected Room makeRoom();
+    }
+
+
+=slide 'Пример за factory method (2)' do
+  example:
+    public class MagicMazeGame extends MazeGame {
+        @Override
+        protected Room makeRoom() {
+            return new MagicRoom();
+        }
+    }
+
+    public class OrdinaryMazeGame extends MazeGame {
+        @Override
+        protected Room makeRoom() {
+            return new OrdinaryRoom();
+        }
+    }
+
+    MazeGame ordinaryGame = new OrdinaryMazeGame();
+    MazeGame magicGame = new MagicMazeGame();
+
+=slide 'Creational patterns: Abstract factory' do
+  p Factory ни позволява да направим един обект, без да знаем кой точно клас.
+  p Abstract factory е надграждане над идеята за factory и ни позволява да създаваме цели "семейства" от концептурално свързани обекти, без да знаем конкретните им класове.
+  p Добър пример е случаят, когато искаме да създадем програма с графичен интерфейс. Искаме да можем да създаваме най-различни компоненти (бутони, етикети, менюта и тн.), които имат различна имплементация за различните операционни системи, но ни се ще да напишем кода за цялостния UI само веднъж.
+  img src="21/abstract_factory_uml.jpg"
+
+=slide 'Behavioural patterns: Iterator' do
+  p Yep. Итераторът, който несъмнено сте писали по ООП е основен design pattern :)
+
+  p Итераторът ни помага да отделим (decouple) алгоритмите ни, които използват колекции от конкретните специфики на колекциите. Например, не ме интересува дали колекцията е построена като масив с числово индексиране, като свързан списък, като дърво, или по какъвто и да е друг начин, аз просто искам да обходя всичките ѝ елементи.
+
+=slide 'Behavioural patterns: Observer pattern' do
+  ul
+    li Чест идиом е да искаме при случването на дадено събитие да свършим редица неща.
+    li В такива случаи можем да използваме Observer pattern-a.
+    li Накратко: Обектът, който следи за събитието, има списък от наблюдатели, които трябва да уведоми при случване на събитието. Всеки от набюдателите може да обработи това събитие както желае.
+
+=slide 'Пример за Observer pattern' do
+  example:
+    class EventSource {
+        public interface Observer {
+            void update(String event);
+        }
+
+        private final List<Observer> observers = new ArrayList<>();
+
+        private void notifyObservers(String event) {
+            observers.forEach(observer -> observer.update(event));
+        }
+
+        public void addObserver(Observer observer) {
+            observers.add(observer);
+        }
+
+        public void scanSystemIn() {
+            Scanner scanner = new Scanner(System.in);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                notifyObservers(line);
+            }
+        }
+    }
+

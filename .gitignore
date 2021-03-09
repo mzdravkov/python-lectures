@@ -1,2 +1,4 @@
 compiled-lectures
 .bundle
+*.un~
+&.swp
